@@ -42,4 +42,8 @@
     <Copy SourceFiles="@(PublishFiles)" DestinationFolder="$(OutDir)" Condition="@(PublishFiles-&gt;Count()) != 0" />
   </Target>
 
+  <Target Name="OutputToGaleProfile" AfterTargets="AfterBuild" Condition="$(IAmDiFFoZ)=='true'">
+    <Copy SourceFiles="$(OutputPath)/DiFFoZTweaks.dll" DestinationFolder="C:\Users\$(DiFFoZ)\AppData\Roaming\com.kesomannen.gale\lethal-company\profiles\Default\BepInEx\plugins\DiFFoZ-DiFFoZTweaks" />
+  </Target>
+
 </Project>
