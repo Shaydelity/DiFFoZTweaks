@@ -1,0 +1,11 @@
+{
+    "name": "DiFFoZTweaks",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/DiFFoZ/DiFFoZTweaks",
+    "description": "Silly Tweaks",
+    "dependencies":
+    [
+        "BepInEx-BepInExPack-5.4.2100",
+        "DiFFoZ-HarmonyXTranspilerFix-1.1.0"
+    ]
+}
