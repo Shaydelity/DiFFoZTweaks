@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
+using DiFFoZTweaks.Harmony;
 using GameNetcodeStuff;
 using HarmonyLib;
 using UnityEngine;
@@ -24,6 +26,12 @@ internal static class Patch_CosmeticApplication
         }
 
         s_ApplyCosmetic = cosmeticApplicationType.GetMethod("ApplyCosmetic", AccessTools.all);
+    }
+
+    [HarmonyCleanup]
+    public static Exception? Cleanup(Exception exception)
+    {
+        return HarmonyExceptionHandler.ReportException(exception);
     }
 
     [HarmonyPrepare]
