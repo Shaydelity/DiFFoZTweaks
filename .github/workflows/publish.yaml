@@ -1,0 +1,64 @@
+name: Publish mod in Thunderstore
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Mod Version (SemVer: https://semver.org)'
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.x
+
+      - name: Install dependencies
+        run: dotnet restore DiFFoZTweaks.sln
+
+      - name: Update version
+        run: "sed -i \"s#<Version>0.0.0</Version>#<Version>${{ github.event.inputs.version }}</Version>#\" props/Common.props"  
+
+      - name: Update modpack version
+        run: sed -i "s#0.0.0#${{ github.event.inputs.version }}#" DiFFoZTweaks/Publish/manifest.json
+
+      - name: Build mod
+        run: dotnet build DiFFoZTweaks/DiFFoZTweaks.csproj --configuration Release --no-restore
+
+      - name: Zip files
+        run: |
+          mkdir -p ./release
+          mv ./DiFFoZTweaks/bin/Release/netstandard2.1/* ./release
+          mv ./*.md ./release
+          cd ./release
+          zip -r modpack.zip * -x ./DiFFoZTweaks.deps.json
+
+      - name: Upload to Thunderstore
+        uses: GreenTF/upload-thunderstore-package@v4.3
+        with:
+          token: ${{ secrets.THUNDERSTORE_TOKEN }}
+          community: lethal-company
+          namespace: DiFFoZ
+          name: DiFFoZTweaks
+          description: Silly Tweaks
+          version: ${{ github.event.inputs.version }}
+          file: ./release/modpack.zip
+          repo: thunderstore.io
+          website: https://github.com/DiFFoZ/DiFFoZTweaks
+          deps: |
+            BepInEx-BepInExPack@5.4.2100
+      
+      - name: Create release
+        uses: actions/create-release@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: DiFFoZTweaks v${{ github.event.inputs.version }}
