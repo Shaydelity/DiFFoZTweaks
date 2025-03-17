@@ -55,9 +55,16 @@ internal static class Patch_CosmeticApplication
             return true;
         }
 
-        if (___spawnedCosmeticsIds.Count > 3)
+        var limitCount = DiFFoZTweaksPlugin.Instance.Config.MoreCompany.CosmeticLimit.Value;
+        if (limitCount < 0)
         {
-            DiFFoZTweaksPlugin.Instance.Logger.LogMessage($"Ignoring cosmetic spawn for {player.playerUsername}, because player hit limit of 3 cosmetics");
+            __result = false;
+            return true;
+        }
+
+        if (___spawnedCosmeticsIds.Count > limitCount)
+        {
+            DiFFoZTweaksPlugin.Instance.Logger.LogMessage($"Ignoring cosmetic spawn for {player.playerUsername} due to reaching the limit of {limitCount} cosmetics");
 
             __result = false;
             return false;
