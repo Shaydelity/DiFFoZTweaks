@@ -62,7 +62,8 @@ internal static class Patch_CosmeticApplication
             return true;
         }
 
-        if (___spawnedCosmeticsIds.Count > limitCount)
+        // +1 to include this cosmetic
+        if (___spawnedCosmeticsIds.Count + 1 > limitCount)
         {
             DiFFoZTweaksPlugin.Instance.Logger.LogMessage($"Ignoring cosmetic spawn for {player.playerUsername} due to reaching the limit of {limitCount} cosmetics");
 
