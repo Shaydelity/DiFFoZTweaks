@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DiFFoZTweaks.Harmony;
+namespace DiFFoZTweaks.Utilities;
 internal static class HarmonyExceptionHandler
 {
     public static Exception? ReportException(Exception? exception)

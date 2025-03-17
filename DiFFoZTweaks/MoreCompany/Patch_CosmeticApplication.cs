@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using DiFFoZTweaks.Harmony;
+using DiFFoZTweaks.Utilities;
 using GameNetcodeStuff;
 using HarmonyLib;
 using UnityEngine;
