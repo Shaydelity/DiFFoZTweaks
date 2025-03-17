@@ -7,8 +7,10 @@ public abstract class ConfigSection
 
     public ConfigEntry<bool> Enabled { get; protected set; } = null!;
 
-    public virtual void Initialize(ConfigFile config)
+    public abstract void Initialize(ConfigFile config);
+
+    protected void InitializeEnabled(ConfigFile config, bool enabled, string description = "Enable integration with the mod")
     {
-        Enabled = config.Bind(Section, "Enabled", false, "Enable integration");
+        Enabled = config.Bind(Section, "Enabled", enabled, description);
     }
 }

@@ -41,6 +41,13 @@ internal static class Patch_CosmeticApplication
     [HarmonyPrefix]
     public static bool CheckCosmeticLimit(MonoBehaviour __instance, List<string> ___spawnedCosmeticsIds, out bool __result)
     {
+        if (!DiFFoZTweaksPlugin.Instance.Config.MoreCompany.CosmeticLimit.TryGetValue(out var limitCount)
+            || limitCount < 0)
+        {
+            __result = false;
+            return true;
+        }
+
         var player = __instance.GetComponentInParent<PlayerControllerB>();
         if (player == null)
         {
@@ -50,13 +57,6 @@ internal static class Patch_CosmeticApplication
 
         if (GameNetworkManager.Instance != null
             && GameNetworkManager.Instance.localPlayerController == player)
-        {
-            __result = false;
-            return true;
-        }
-
-        var limitCount = DiFFoZTweaksPlugin.Instance.Config.MoreCompany.CosmeticLimit.Value;
-        if (limitCount < 0)
         {
             __result = false;
             return true;
