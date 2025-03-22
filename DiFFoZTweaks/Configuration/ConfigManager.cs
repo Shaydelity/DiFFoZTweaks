@@ -16,13 +16,16 @@ public partial class ConfigManager
 
     public ConfigEntry<bool> FlashTaskbar { get; private set; }
 
-    public MoreCompanyConfig MoreCompany { get; private set; } = new();
+    public MoreCompanyConfig MoreCompany { get; private set; }
+
+    public UnityDebugConfig UnityDebug { get; private set; }
 
     private void Initialize()
     {
         FlashTaskbar = m_ConfigFile.Bind("Utilities", "Flash taskbar after load", true,
             "Flash taskbar app when game loaded and waiting user input");
 
-        MoreCompany.Initialize(m_ConfigFile);
+        MoreCompany = new(m_ConfigFile);
+        UnityDebug = new(m_ConfigFile);
     }
 }

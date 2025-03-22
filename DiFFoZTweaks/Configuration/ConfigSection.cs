@@ -3,14 +3,25 @@
 namespace DiFFoZTweaks.Configuration;
 public abstract class ConfigSection
 {
-    public abstract string Section { get; protected set; }
+    private readonly ConfigFile m_Config;
+
+    protected ConfigSection(ConfigFile config, string section, bool isEnabled = true, string enabledDescription = "Enable integration with the mod")
+    {
+        m_Config = config;
+        Section = section;
+        Enabled = config.Bind(section, "Enabled", isEnabled, enabledDescription);
+        Initialize(config);
+    }
+
+    public string Section { get; }
 
     public ConfigEntry<bool> Enabled { get; protected set; } = null!;
 
-    public abstract void Initialize(ConfigFile config);
+    protected abstract void Initialize(ConfigFile config);
 
-    protected void InitializeEnabled(ConfigFile config, bool enabled, string description = "Enable integration with the mod")
+    protected ConfigEntryCheck<T> Bind<T>(string key, T defaultValue, string description)
     {
-        Enabled = config.Bind(Section, "Enabled", enabled, description);
+        var entry = m_Config.Bind(Section, key, defaultValue, description);
+        return new ConfigEntryCheck<T>(Enabled, entry);
     }
 }
