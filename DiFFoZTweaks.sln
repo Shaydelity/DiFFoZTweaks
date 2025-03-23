@@ -5,6 +5,15 @@ VisualStudioVersion = 17.11.35111.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiFFoZTweaks", "DiFFoZTweaks\DiFFoZTweaks.csproj", "{7FE2FB80-11EE-406A-823F-3A458834CE5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiFFoZTweaks.Patcher", "DiFFoZTweaks.Patcher\DiFFoZTweaks.Patcher.csproj", "{5B41BEAF-E469-4F43-BF6A-9E5B91DB4A58}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9576147E-A11D-4E11-97CC-FB62A298CDC0}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		README.md = README.md
+		props\Common.props = props\Common.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +24,10 @@ Global
 		{7FE2FB80-11EE-406A-823F-3A458834CE5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FE2FB80-11EE-406A-823F-3A458834CE5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FE2FB80-11EE-406A-823F-3A458834CE5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B41BEAF-E469-4F43-BF6A-9E5B91DB4A58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B41BEAF-E469-4F43-BF6A-9E5B91DB4A58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B41BEAF-E469-4F43-BF6A-9E5B91DB4A58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B41BEAF-E469-4F43-BF6A-9E5B91DB4A58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

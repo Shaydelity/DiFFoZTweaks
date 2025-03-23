@@ -1,4 +1,5 @@
-﻿using BepInEx.Configuration;
+﻿using System;
+using BepInEx.Configuration;
 
 namespace DiFFoZTweaks.Configuration;
 
@@ -32,5 +33,19 @@ public class ConfigEntryCheck<T>
 
         value = m_ConfigEntry.Value;
         return true;
+    }
+
+    public void SubscribeAndInvoke(Action<ConfigEntryCheck<T>> action)
+    {
+        void EventHandler(object _, System.EventArgs __)
+        {
+            // capture this sender instead
+            action(this);
+        }
+
+        m_EnabledEntry.SettingChanged += EventHandler;
+        m_ConfigEntry.SettingChanged += EventHandler;
+
+        action(this);
     }
 }

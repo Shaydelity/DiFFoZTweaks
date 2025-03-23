@@ -10,14 +10,9 @@
       https://api.nuget.org/v3/index.json;
       https://nuget.bepinex.dev/v3/index.json;
     </RestoreAdditionalProjectSources>
-    <Version>0.0.0</Version>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>embedded</DebugType>
-    <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=/_/</PathMap>
-  </PropertyGroup>
+  <Import Project="..\props\Common.props" />
 
   <ItemGroup>
     <PackageReference Include="BepInEx.Core" Version="5.*" PrivateAssets="all" />
@@ -43,7 +38,7 @@
   </Target>
 
   <Target Name="OutputToGaleProfile" AfterTargets="AfterBuild" Condition="$(IAmDiFFoZ)=='true'">
-    <Copy SourceFiles="$(OutputPath)/DiFFoZTweaks.dll" DestinationFolder="C:\Users\$(DiFFoZ)\AppData\Roaming\com.kesomannen.gale\lethal-company\profiles\Default\BepInEx\plugins\DiFFoZ-DiFFoZTweaks" />
+    <Copy SourceFiles="$(OutputPath)/DiFFoZTweaks.dll" DestinationFolder="$(BepInExProfilePath)\plugins\DiFFoZ-DiFFoZTweaks" />
   </Target>
 
 </Project>
