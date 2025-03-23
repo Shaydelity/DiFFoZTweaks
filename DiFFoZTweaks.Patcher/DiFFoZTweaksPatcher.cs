@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using BepInEx.Logging;
 using HarmonyLib;
 using Mono.Cecil;
 
@@ -11,14 +13,15 @@ internal class DiFFoZTweaksPatcher
 
     public static DiFFoZTweaksPatcher Instance { get; private set; } = null!;
 
-    private Harmony m_Harmony = null!;
+    public Harmony Harmony { get; private set; } = null!;
+    public ManualLogSource Logger { get; private set; } = null!;
 
     private void Initialize()
     {
-        m_Harmony = new(nameof(DiFFoZTweaksPatcher));
-        m_Harmony.PatchAll(typeof(DiFFoZTweaksPatcher).Assembly);
+        Logger = BepInEx.Logging.Logger.CreateLogSource(nameof(DiFFoZTweaksPatcher));
 
-
+        Harmony = new(nameof(DiFFoZTweaksPatcher));
+        Harmony.PatchAll(typeof(DiFFoZTweaksPatcher).Assembly);
     }
 
     public static void Finish()
