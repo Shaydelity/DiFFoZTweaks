@@ -53,6 +53,11 @@ internal static class Patch_Chainloader
     {
         assembly = null;
 
+        if (info.Metadata.GUID != "JacobG5.WesleyMoonScripts")
+        {
+            return false;
+        }
+
         using var definition = AssemblyDefinition.ReadAssembly(info.Location, TypeLoader.ReaderParameters);
         var method = definition.MainModule
             .GetType("WesleyMoonScripts.Components", "ItemShop")
