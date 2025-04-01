@@ -24,21 +24,25 @@ jobs:
         run: dotnet restore DiFFoZTweaks.sln
 
       - name: Update version
-        run: "sed -i \"s#<Version>0.0.0</Version>#<Version>${{ github.event.inputs.version }}</Version>#\" DiFFoZTweaks/DiFFoZTweaks.csproj"  
+        run: "sed -i \"s#<Version>0.0.0</Version>#<Version>${{ github.event.inputs.version }}</Version>#\" props/Common.props"
 
       - name: Update modpack version
         run: sed -i "s#0.0.0#${{ github.event.inputs.version }}#" DiFFoZTweaks/Publish/manifest.json
 
       - name: Build mod
-        run: dotnet build DiFFoZTweaks/DiFFoZTweaks.csproj --configuration Release --no-restore
+        run: dotnet build DiFFoZTweaks.sln --configuration Release --no-restore
 
       - name: Zip files
         run: |
-          mkdir -p ./release
-          mv ./DiFFoZTweaks/bin/Release/netstandard2.1/* ./release
+          mkdir -p ./release/BepInEx/patchers/DiFFoZTweaks
+          mv ./DiFFoZTweaks.Patcher/bin/Release/netstandard2.1/*.dll ./release/BepInEx/patchers/DiFFoZTweaks
+          mkdir -p ./release/BepInEx/plugins/DiFFoZTweaks
+          mv ./DiFFoZTweaks/bin/Release/netstandard2.1/* ./release/BepInEx/plugins/DiFFoZTweaks
+          mv ./release/BepInEx/plugins/DiFFoZTweaks/icon.png ./release
+          mv ./release/BepInEx/plugins/DiFFoZTweaks/manifest.json ./release
           mv ./*.md ./release
           cd ./release
-          zip -r modpack.zip * -x ./DiFFoZTweaks.deps.json
+          zip -r modpack.zip *
 
       - name: Upload to Thunderstore
         uses: GreenTF/upload-thunderstore-package@v4.3
