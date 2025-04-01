@@ -52,7 +52,6 @@ internal static class Patch_Chainloader
     private static bool PatchPlugin(PluginInfo info, out Assembly? assembly)
     {
         assembly = null;
-        return false;
 
         using var definition = AssemblyDefinition.ReadAssembly(info.Location, TypeLoader.ReaderParameters);
         var method = definition.MainModule
