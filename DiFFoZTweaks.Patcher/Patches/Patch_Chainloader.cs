@@ -52,6 +52,7 @@ internal static class Patch_Chainloader
     private static bool PatchPlugin(PluginInfo info, out Assembly? assembly)
     {
         assembly = null;
+        return false;
 
         if (info.Metadata.GUID != "JacobG5.WesleyMoonScripts")
         {
