@@ -24,4 +24,8 @@
     <PackageReference Include="BepInEx.Core" Version="5.*" PrivateAssets="all" />
   </ItemGroup>
 
+  <Target Name="OutputToGaleProfile" AfterTargets="AfterBuild" Condition="$(IAmDiFFoZ)=='true'">
+    <Copy SourceFiles="$(OutputPath)/DiFFoZTweaks.Patcher.dll" DestinationFolder="$(BepInExProfilePath)\patchers\DiFFoZ-DiFFoZTweaks\DiFFoZTweaks" />
+  </Target>
+
 </Project>

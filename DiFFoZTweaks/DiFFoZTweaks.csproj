@@ -34,6 +34,10 @@
     <None Remove="Publish\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DiFFoZTweaks.Patcher\DiFFoZTweaks.Patcher.csproj" />
+  </ItemGroup>
+
   <Target Name="CopyPublishFiles" AfterTargets="AfterBuild">
     <ItemGroup>
       <PublishFiles Include="$(MSBuildThisFileDirectory)Publish/*.*" />
@@ -44,7 +48,7 @@
   </Target>
 
   <Target Name="OutputToGaleProfile" AfterTargets="AfterBuild" Condition="$(IAmDiFFoZ)=='true'">
-    <Copy SourceFiles="$(OutputPath)/DiFFoZTweaks.dll" DestinationFolder="$(BepInExProfilePath)\plugins\DiFFoZ-DiFFoZTweaks" />
+    <Copy SourceFiles="$(OutputPath)/DiFFoZTweaks.dll" DestinationFolder="$(BepInExProfilePath)\plugins\DiFFoZ-DiFFoZTweaks\DiFFoZTweaks" />
   </Target>
 
 </Project>
