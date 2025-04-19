@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased
+- Added ignore plugin loading list option.
+
 ## 1.3.0
 - Added log and exception handler of null AudioSource in AudioReverbTrigger.
 
