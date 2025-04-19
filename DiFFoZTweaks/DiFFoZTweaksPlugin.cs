@@ -1,6 +1,7 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
-using DiFFoZTweaks.Configuration;
+using DiFFoZTweaks.Patcher;
+using DiFFoZTweaks.Patcher.Configuration;
 using HarmonyLib;
 
 namespace DiFFoZTweaks;
@@ -23,7 +24,7 @@ public class DiFFoZTweaksPlugin : BaseUnityPlugin
     internal void Awake()
     {
         Instance = this;
-        Config = new ConfigManager(base.Config);
+        Config = DiFFoZTweaksPatcher.Instance.Config;
         Logger = base.Logger;
 
         m_Harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);

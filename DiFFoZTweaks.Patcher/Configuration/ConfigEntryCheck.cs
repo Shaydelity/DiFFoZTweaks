@@ -1,7 +1,7 @@
 ﻿using System;
 using BepInEx.Configuration;
 
-namespace DiFFoZTweaks.Configuration;
+namespace DiFFoZTweaks.Patcher.Configuration;
 
 public static class ConfigEntryCheck
 {
@@ -10,12 +10,18 @@ public static class ConfigEntryCheck
         var entry = config.Bind(section, key, defaultValue, description);
         return new ConfigEntryCheck<T>(enabledEntry, entry);
     }
+
+    public static LazyConfigEntryCheck<T, U> BindLazy<T, U>(this ConfigFile config, ConfigEntry<bool> enabledEntry, Func<T, U> parser, string section, string key, T defaultValue, string description)
+    {
+        var entry = config.Bind(section, key, defaultValue, description);
+        return new LazyConfigEntryCheck<T, U>(enabledEntry, entry, parser);
+    }
 }
 
 public class ConfigEntryCheck<T>
 {
-    private readonly ConfigEntry<bool> m_EnabledEntry;
-    private readonly ConfigEntry<T> m_ConfigEntry;
+    protected readonly ConfigEntry<bool> m_EnabledEntry;
+    protected readonly ConfigEntry<T> m_ConfigEntry;
 
     public ConfigEntryCheck(ConfigEntry<bool> enabledEntry, ConfigEntry<T> configEntry)
     {
@@ -37,7 +43,7 @@ public class ConfigEntryCheck<T>
 
     public void SubscribeAndInvoke(Action<ConfigEntryCheck<T>> action)
     {
-        void EventHandler(object _, System.EventArgs __)
+        void EventHandler(object _, EventArgs __)
         {
             // capture this sender instead
             action(this);

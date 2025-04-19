@@ -1,6 +1,7 @@
 ﻿using BepInEx.Configuration;
+using DiFFoZTweaks.Patcher.Configuration.Configs;
 
-namespace DiFFoZTweaks.Configuration;
+namespace DiFFoZTweaks.Patcher.Configuration;
 public partial class ConfigManager
 {
     private readonly ConfigFile m_ConfigFile;
@@ -18,7 +19,7 @@ public partial class ConfigManager
 
     public MoreCompanyConfig MoreCompany { get; private set; }
 
-    public UnityDebugConfig UnityDebug { get; private set; }
+    public BepInExConfig BepInExConfig { get; private set; }
 
     private void Initialize()
     {
@@ -26,6 +27,6 @@ public partial class ConfigManager
             "Flash taskbar app when game loaded and waiting user input");
 
         MoreCompany = new(m_ConfigFile);
-        UnityDebug = new(m_ConfigFile);
+        BepInExConfig = new(m_ConfigFile);
     }
 }

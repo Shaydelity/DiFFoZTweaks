@@ -22,6 +22,42 @@ internal static class Patch_Chainloader
             .Patch();
     }
 
+    [HarmonyPatch(nameof(Chainloader.ToPluginInfo))]
+    [HarmonyPostfix]
+    public static void CheckIfPluginIgnored(ref PluginInfo? __result)
+    {
+        if (__result == null)
+        {
+            return;
+        }
+
+        var bepInEx = DiFFoZTweaksPatcher.Instance.Config.BepInExConfig;
+        if (!bepInEx.Enabled.Value)
+        {
+            return;
+        }
+
+        var list = bepInEx.PluginsToNotLoad.Value.Value;
+        if (list.Length == 0)
+        {
+            return;
+        }
+
+        foreach (var plugin in list)
+        {
+            var span = plugin.AsSpan().Trim();
+            if (!span.SequenceEqual(__result.Metadata.GUID))
+            {
+                continue;
+            }
+
+            DiFFoZTweaksPatcher.Instance.Logger.LogMessage($"Ignoring loading of {__result.Metadata.Name}");
+
+            __result = null;
+            return;
+        }
+    }
+
     public static IEnumerable<CodeInstruction> PatchPluginTranspiler(IEnumerable<CodeInstruction> instructions)
     {
         var matcher = new CodeMatcher(instructions);

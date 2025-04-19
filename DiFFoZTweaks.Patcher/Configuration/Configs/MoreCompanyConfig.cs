@@ -1,6 +1,6 @@
 ﻿using BepInEx.Configuration;
 
-namespace DiFFoZTweaks.Configuration;
+namespace DiFFoZTweaks.Patcher.Configuration.Configs;
 public class MoreCompanyConfig : ConfigSection
 {
     public MoreCompanyConfig(ConfigFile config)
@@ -12,7 +12,7 @@ public class MoreCompanyConfig : ConfigSection
 
     protected override void Initialize(ConfigFile config)
     {
-        CosmeticLimit = ConfigEntryCheck.Bind(config, Enabled, Section, "Cosmetic Limit", 15, """
+        CosmeticLimit = config.Bind(Enabled, Section, "Cosmetic Limit", 15, """
                 Defines the maximum number of cosmetics that can be spawned for the player. Set the value to -1 to disable the limit
                 """);
     }

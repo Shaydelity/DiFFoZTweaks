@@ -1,6 +1,6 @@
 ﻿using BepInEx.Configuration;
 
-namespace DiFFoZTweaks.Configuration;
+namespace DiFFoZTweaks.Patcher.Configuration;
 public abstract class ConfigSection
 {
     private readonly ConfigFile m_Config;

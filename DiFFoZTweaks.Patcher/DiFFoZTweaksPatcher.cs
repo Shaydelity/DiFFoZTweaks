@@ -1,20 +1,27 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
+using DiFFoZTweaks.Patcher.Configuration;
 using HarmonyLib;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 
 namespace DiFFoZTweaks.Patcher;
 
-internal class DiFFoZTweaksPatcher
+public class DiFFoZTweaksPatcher
 {
     public static IEnumerable<string> TargetDLLs { get; } = ["Assembly-CSharp.dll"];
 
     public static DiFFoZTweaksPatcher Instance { get; private set; } = null!;
 
+    private ConfigFile m_ConfigFile = null!;
+
     public Harmony Harmony { get; private set; } = null!;
     public ManualLogSource Logger { get; private set; } = null!;
+    public ConfigManager Config { get; private set; } = null!;
 
     public static void Initialize()
     {
@@ -25,6 +32,11 @@ internal class DiFFoZTweaksPatcher
     private void InternalInitialize()
     {
         Logger = BepInEx.Logging.Logger.CreateLogSource(nameof(DiFFoZTweaksPatcher));
+
+        var configPath = Path.Combine(Paths.ConfigPath, "DiFFoZTweaks.cfg");
+
+        m_ConfigFile = new ConfigFile(configPath, true);
+        Config = new(m_ConfigFile);
     }
 
     public static void Finish()
