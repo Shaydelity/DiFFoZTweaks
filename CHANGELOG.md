@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5.0
+- Add fix of softmask for mods that are using soft dependency resolving.
+
 ## 1.4.0
 - Added ignore plugin loading list option.
 - Added logging of SteamNetworkingSockets errors due to unable to send message.
