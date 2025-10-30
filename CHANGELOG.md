@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5.1
+- README update (thanks Shaydelity)
+
 ## 1.5.0
 - Add fix of softmask for mods that are using soft dependency resolving.
 
